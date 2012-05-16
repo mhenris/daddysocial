@@ -1,5 +1,7 @@
 require "bundler/capistrano"
 
+# default_environment['PKG_CONFIG_PATH'] = "/usr/local/lib/pkgconfig"
+
 set :application, "daddysocial.com"
 set :repository,  "git@morgan.github.com:mhenris/daddysocial.git"
 set :branch, "develop"
@@ -23,11 +25,14 @@ role :db,  "daddysocial.com", :primary => true # This is where Rails migrations 
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
 
+# Migrate the DB
+after 'deploy', 'deploy:migrate'
+
 # If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
+namespace :deploy do
+  task :start do ; end
+  task :stop do ; end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
+end

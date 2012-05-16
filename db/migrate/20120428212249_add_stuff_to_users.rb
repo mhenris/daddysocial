@@ -28,11 +28,11 @@ class AddStuffToUsers < ActiveRecord::Migration
 
     add_column :users, :profile_text, :text
 
-    add_column :users, :profile_visible_all, :boolean, :default => :false
+    add_column :users, :profile_visible_all, :boolean, :default => 0
 
     add_column :users, :membership_expiration, :date
 
-    add_column :users, :unlimited_membership, :boolean, :default => :false
+    add_column :users, :unlimited_membership, :boolean, :default => 0
 
   end
 end
