@@ -1,0 +1,74 @@
+<%= render 'shared/error_messages' %>
+<div class="field">
+  <%= f.label :name %><br />
+  <%= f.text_field :name, :autocomplete => :off %>
+</div>
+<div class="field">
+  <%= f.label :email %><br />
+  <%= f.text_field :email, :autocomplete => :off %>
+</div>
+<div class="field">
+  <%= f.label :password %><br />
+  <%= f.password_field :password, :autocomplete => :off %>
+</div>
+<div class="field">
+  <%= f.label :password_confirmation, "Confirmation" %><br />
+  <%= f.password_field :password_confirmation, :autocomplete => :off %>
+</div>
+<div class="field">
+  <%= f.label :birthday %><br />
+  <%= f.date_select :birthday %>
+</div>
+<div class="field">
+  <%= f.label :country, "Country" %><br />
+  <%= f.select :country, TZInfo::Country.all_codes.map { |c| [TZInfo::Country.get(c), c] } %>
+</div>
+<div class="field">
+  <%= f.label :state, "State" %><br />
+  <%= f.select :state, us_states %>
+</div>
+<div class="field">
+  <%= f.label :city %><br />
+  <%= f.text_field :city, :autocomplete => :off %>
+</div>
+<div class="field">
+  <%= f.label :zip %><br />
+  <%= f.text_field :zip, :autocomplete => :off %>
+</div>
+<div class="field">
+  <%= f.label :height, "Height (inches)" %><br />
+  <%= f.text_field :height, :autocomplete => :off %>
+</div>
+<div class="field">
+  <%= f.label :weight, "Weight (pounds)" %><br />
+  <%= f.text_field :weight, :autocomplete => :off %>
+</div>
+<div class="field">
+  <%= f.label :preferred_age_low %><br />
+  <%= f.text_field :preferred_age_low, :autocomplete => :off %>
+</div>
+<div class="field">
+  <%= f.label :preferred_age_high %><br />
+  <%= f.text_field :preferred_age_high, :autocomplete => :off %>
+</div>
+<div class="field">
+  <%= f.label :sexually %><br />
+  <%= f.select :sexually, [nil,'Top','Bottom','Versatile','Oral Only'] %>
+</div>
+<div class="field">
+  <%= f.label :relationship %><br />
+  <%= f.select :relationship, [nil,'Single','Dating','Partnered (Monogamous)','Partnered (Open)','Married'] %>
+</div>
+<div class="field">
+  <%= f.file_field :profile_image %>
+</div>
+<div class="field">
+  <%= f.label :profile_text %><br />
+  <%= f.text_area :profile_text, :autocomplete => :off %>
+</div>
+<div class="field">
+  <%= recaptcha_tags %>
+</div>
+<div class="actions">
+  <%= f.submit "Sign up" %>
+</div>

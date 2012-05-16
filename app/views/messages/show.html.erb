@@ -1,0 +1,6 @@
+<p><%= @message.message %></p>
+<%= form_for Message.new, :url => user_messages_path(@message.sender) do |f| %>
+  <%= f.label "What do you want to say" %><br/>
+  <%= f.text_area :message, :cols => 70, :rows => 10 %><br/>
+  <%= f.submit "Send Message" %>
+<% end %>

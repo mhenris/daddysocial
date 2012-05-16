@@ -1,0 +1,26 @@
+<div class="post">
+  <div class="main_image left"><%= image_tag feed_post.user.profile_image_url(:thumb), :width => 50 %></div>
+  <div class="main_body left">
+    <p style="width:420px" class="left"><%= link_to feed_post.user.name, user_path(feed_post.user) %></p>
+    <% if feed_post.user_id == current_user.id %>
+      <p style="margin:0px;padding:0px;text-align:right;font-size:10px" class="right"><%= button_to 'X', post_path(feed_post), :confirm => 'Are you sure?', :method => :delete, :class => 'delete' %></p>
+    <% end %>
+    <div class="clear">&nbsp;</div>
+    <p><%= feed_post.body %></p>
+    <% unless feed_post.image.blank? %>
+      <p><%= image_tag feed_post.image_url(:feed) %></p>
+    <% end %>
+    <p class="user_gray smaller">&nbsp; <%= time_ago_in_words(feed_post.created_at).titleize %> Ago</p>
+    <div class="clear">&nbsp;</div>
+      <%= render :partial => 'comments/comment', :collection => feed_post.comments %>
+    <div id="comment_<%= feed_post.id %>" class="comment add_comment">
+      <%= form_for :comment, :remote => true, :url => comments_path, :html => { :method => "POST" } do |c| %>
+        <%= c.text_area :comment, :placeholder => "Comment...", :rows => 2, :class => "enter_submit" %>
+        <%= c.hidden_field :post_id, :value => feed_post.id %>
+      <% end %>
+      <div class="clear">&nbsp;</div>
+    </div>
+    <div class="clear">&nbsp;</div>
+  </div>
+  <div class="clear">&nbsp;</div>
+</div>

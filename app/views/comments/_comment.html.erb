@@ -1,0 +1,8 @@
+<div class="comment">
+  <div class="comment_image left"><%= image_tag comment.user.profile_image_url(:thumb), :height => 30 %></div>
+  <div class="comment_body left">
+    <p><%= link_to comment.user.name, user_path(comment.user) %></p>
+    <p><%= comment.comment %></p>
+  </div>
+  <div class="clear">&nbsp;</div>
+</div>

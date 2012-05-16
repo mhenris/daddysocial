@@ -1,0 +1,41 @@
+<div id="menu_container">
+  <nav id="menu">
+    <ul class="main">
+      <% if current_page?(news_path) %>
+        <li><%= link_to "Community", community_path %></li>
+      <% else %>
+        <li><%= link_to "Community", community_path %></li>
+      <% end %>
+      <% if current_user.premium? %>
+        <li><%= link_to "Personal News", news_path %></li>
+      <% end %>
+      <li><%= link_to "My Profile", user_path(@current_user) %></li>
+      <li><%= link_to "Who's Online", users_path(:on => 1) %></li>
+      <li><%= link_to "Search Users", search_users_path %></li>
+      <li><%= link_to "Men's Health", root_path %></li>
+    </ul>
+  </nav>
+</div>
+<script>  
+    (function($){  
+  
+        //cache nav  
+        var nav = $("#menu");  
+  
+        //add indicators and hovers to submenu parents  
+        nav.find("li").each(function() {  
+            if ($(this).find("ul").length > 0) {  
+  
+                //show subnav on hover  
+                $(this).mouseenter(function() {  
+                    $(this).find("ul").stop(true, true).slideDown(150);  
+                });  
+  
+                //hide submenus on exit  
+                $(this).mouseleave(function() {  
+                    $(this).find("ul").stop(true, true).slideUp(150);  
+                });  
+            }  
+        });  
+    })(jQuery);  
+</script>  

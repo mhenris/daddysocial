@@ -1,0 +1,19 @@
+    <tr>
+      <td valign="top"><%= image_tag received_message.sender.profile_image_url(:thumb) %></td>
+      <td valign="top" width="200">
+        <p class="no_margin"><%= link_to received_message.sender.name, user_path(received_message.sender) %>
+        <p class="user_gray small no_margin"><%= received_message.sender.city %>, <%= received_message.sender.state %></p>
+        <p class="user_gray small no_margin"><%= TZInfo::Country.get(received_message.sender.country) %></p>
+        <p class="user_gray small no_margin"><%= received_message.sender.age %> Years Old</p>
+      </td>
+      <td valign="top">
+        <p class="bold no_margin"><%= link_to "View Message", user_message_path(current_user,received_message) %></p>
+        <p class="no_margin"><%= time_ago_in_words(received_message.created_at).titleize %> Ago</p>
+      </td>
+      <td valign="top">
+        <%= button_to 'Delete', user_message_path(current_user,received_message), :confirm => 'Are you sure?', :method => :delete %>
+      </td>
+      <!-- .strftime("%A %B %d, %Y") %></td> -->
+    </tr>
+
+

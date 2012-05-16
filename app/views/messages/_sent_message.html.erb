@@ -1,0 +1,16 @@
+    <tr>
+      <td valign="top"><%= image_tag sent_message.recipient.profile_image_url(:thumb) %></td>
+      <td valign="top" width="200">
+        <p class="no_margin"><%= link_to sent_message.recipient.name, user_path(sent_message.recipient) %>
+        <p class="user_gray small no_margin"><%= sent_message.recipient.city %>, <%= sent_message.recipient.state %></p>
+        <p class="user_gray small no_margin"><%= TZInfo::Country.get(sent_message.recipient.country) %></p>
+        <p class="user_gray small no_margin"><%= sent_message.recipient.age %> Years Old</p>
+      </td>
+      <td valign="top">
+        <p class="bold no_margin"><%= link_to "View Message", user_message_path(current_user,sent_message) %></p>
+        <p class="no_margin"><%= time_ago_in_words(sent_message.created_at).titleize %> Ago</p>
+      </td>
+      <td valign="top">
+      </td>
+      <!-- .strftime("%A %B %d, %Y") %></td> -->
+    </tr>

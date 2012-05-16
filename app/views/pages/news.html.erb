@@ -1,0 +1,12 @@
+<script>
+$(document).ready(function() {
+  $('.enter_submit').keypress(function(e) {
+    if(e.which == 13) { $(this).parent().submit(); }
+  })
+});
+</script>
+<%= form_for :post, :url => posts_path, :html => { :method => "POST", :multipart => true } do |f| %>
+  <%= render :partial => 'posts/post_form', :locals => { :f => f } %>
+<% end %>
+
+<%= render :partial => 'posts/feed_post', :collection => @posts %>

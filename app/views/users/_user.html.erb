@@ -1,0 +1,16 @@
+<div class="user">
+<div class="post_image"><%= link_to image_tag(user.profile_image_url(:thumb), :class => 'blue_border', :width => 50), user_path(user) %></div>
+<div class="left">
+  <p>
+    <%= link_to user.name, user_path(user) %>
+    <% if user.online? %>
+      <%= image_tag "online.png", :width => 10 %>
+    <% else %>
+      <%= image_tag "offline.png", :width => 10 %>
+    <% end %>
+  </p>
+  <p class="user_gray small"><%= user.city %>, <%= user.state %> / <%= TZInfo::Country.get(user.country).name %></p>
+  <p class="user_gray small"><%= user.age %> Years Old</p>
+</div>
+<div class="clear">&nbsp;</div>
+</div>

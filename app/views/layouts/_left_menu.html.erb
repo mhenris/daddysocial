@@ -1,0 +1,19 @@
+<h3>Login</h3>
+<%= form_for(:session, :url => sessions_path) do |f| %>
+  <div class="field">
+    <%= f.label :email, :class => "small"%><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :password, :class => "small" %><br />
+    <%= f.password_field :password %>
+  </div>
+  <%= fields_for :user do |u| %>
+    <div>
+      <%= u.check_box :remember_me %> <%= u.label :remember_me, "Remember Me?", :class => "small" %>
+    </div>
+  <% end %>
+  <div class="actions">
+    <%= f.submit "Sign in" %>
+  </div>
+<% end %>

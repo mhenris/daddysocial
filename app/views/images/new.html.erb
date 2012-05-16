@@ -1,0 +1,13 @@
+<h2>Upload Image</h2>
+<%= form_for UserImage.new, :html => { :multipart => :true } do |f| %>
+  <div class="field">
+    <%= f.label :private, "Private Image" %><br />
+    <%= f.check_box :private %>
+  </div>
+  <div class="field">
+    <%= f.file_field :image %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Add Image" %>
+  </div>
+<% end %>

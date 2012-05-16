@@ -1,0 +1,17 @@
+<div class="picture">
+<table>
+<tr>
+<td valign="top"><%= image_tag current_user.profile_image_url(:thumb), :width => 50 %></td>
+<td valign="top">&nbsp;<%= link_to current_user.name, user_path(current_user) %></td>
+</tr>
+</table>
+</div>
+<% if current_user.unread_messages == 0 %>
+  <%= link_to "Personal Messages", inbox_path, :class => "left_menu_link" %>
+<% else %>
+  <%= link_to "Personal Messages (" + current_user.unread_messages.to_s + ")", inbox_path, :class => "left_menu_link" %>
+<% end %>
+<%= link_to "Visitors", visitors_path, :class => "left_menu_link" %>
+<%= link_to "Photos (" + current_user.user_images.size.to_s + ")", user_images_path(current_user), :class => "left_menu_link" %>
+<%= link_to "Followers ("+current_user.followers.size.to_s+")", followers_user_path(current_user), :class => "left_menu_link" %>
+<%= link_to "Following ("+current_user.following.size.to_s+")", following_user_path(current_user), :class => "left_menu_link" %>

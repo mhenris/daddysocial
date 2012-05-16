@@ -1,0 +1,17 @@
+<div class="post_form">
+  <p><%= f.label :body, "Speak and thou shalt be heard" %></p>
+  <p><%= f.text_area :body, :autocomplete => :off, :rows => 3, :style => "width:520px" %></p>
+  <div class="clear">&nbsp;</div>
+  <div id="toggle_add" class="left toggle">
+    <a href="#" onclick="$('#toggle_add').hide();$('#toggle_image').show();$('#toggle_remove').show()">Add Photo</a>
+  </div>
+  <div id="toggle_remove" class="left toggle hide">
+    <a href="#" onclick="$('#toggle_remove').hide();$('#toggle_image').hide();$('#toggle_add').show()">Remove Photo</a>
+  </div>
+  <div id="toggle_image" class="left toggle hide">
+    <%= f.file_field :image %>
+  </div>
+  <div id="post_submit" class="right"><%= f.submit "Post" %></div>
+  <div class="clear">&nbsp;</div>
+</div>
+

@@ -1,0 +1,10 @@
+<%= image_tag @image.image_url(:full) %>
+<%= form_for :post, :url => posts_path, :html => { :method => "POST", :multipart => true } do |f| %>
+<div class="post_form">
+  <p><%= f.label :body, "Speak and thou shalt be heard" %></p>
+  <p><%= f.text_area :body, :autocomplete => :off, :rows => 3, :style => "width:520px" %></p>
+  <%= f.hidden_field :image_id, :value => params[:id] %>
+  <div id="post_submit" class="right"><%= f.submit "Post" %></div>
+  <div class="clear">&nbsp;</div>
+</div>
+<% end %>

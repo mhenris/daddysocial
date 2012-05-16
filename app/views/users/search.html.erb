@@ -1,0 +1,8 @@
+<h1>fuckyou</h1>
+<%= form_tag '/users', :method => 'get' %>
+  <p>
+    Age<br />
+    <%= text_field_tag :min %> -
+    <%= text_field_tag :max %>
+  </p>
+  <p><%= submit_tag "Submit", :name => nil %></p>

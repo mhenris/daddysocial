@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <title><%= title %></title>
+  <%= csrf_meta_tags %>
+  <%= javascript_include_tag 'jquery' %>
+  <%= javascript_include_tag 'jquery-ui' %>
+  <%= javascript_include_tag 'rails' %>
+  <%= javascript_include_tag params[:controller] %>
+  <%= stylesheet_link_tag 'main' %>
+  <%= stylesheet_link_tag 'jquery-ui' %>
+</head>
+<body>
+<div id="main">
+  <%= render 'layouts/header' %>
+  <% if signed_in? %>
+    <%= render 'layouts/menu_user' %>
+  <% else %>
+    <%= render 'layouts/menu' %>
+  <% end %>
+  <div id="content_container">
+  <div id="content_padding">
+  <div id="content">
+    <div id="left_menu">
+      <% if signed_in? %>
+        <%= render 'layouts/left_menu_user' %>
+      <% else %>
+        <%= render 'layouts/left_menu' %>
+      <% end %>
+    </div>
+    <div id="main_content">
+      <% flash.each do |key, value| %>
+        <div class="flash <%= key %>"><%= value %></div>
+      <% end %>
+      <%= yield %>
+    </div>
+    <div id="right_menu">
+      <h3>Recent Logins</h3>
+      <%= render :partial => "users/small_user", :collection => @recent_logins %>
+    </div>
+    <div class="clear">&nbsp;</div>
+  </div><!-- End Div id="content" -->
+  </div><!-- End Div id="content_padding" -->
+  </div><!-- End Div id="content_container" -->
+  <%= render 'layouts/footer' %>
+  <%= debug(params) if Rails.env.development? %>
+</div><!-- End Div id="main" -->
+</body>
+</html>

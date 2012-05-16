@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  age_low: 1
+  age_high: 1
+  country: MyString
+  state: MyString
+  city: MyString
+  postal_code: MyString
+  preferred_age_low: 1
+  preferred_age_high: 1
+  sexually: MyString
+  relationship: MyString
+  online: false
+  signup_days: 1
+  photo: false
+  distance: 1
+
+two:
+  age_low: 1
+  age_high: 1
+  country: MyString
+  state: MyString
+  city: MyString
+  postal_code: MyString
+  preferred_age_low: 1
+  preferred_age_high: 1
+  sexually: MyString
+  relationship: MyString
+  online: false
+  signup_days: 1
+  photo: false
+  distance: 1

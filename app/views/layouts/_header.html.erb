@@ -1,0 +1,13 @@
+<div id="header_container">
+  <div id="header">
+    <div id="header_text" class="left"><span style="color:#6699cc">daddy</span><span style="color:orange">social</span></div>
+    <div id="header_links" class="right">
+      <% if signed_in? %>
+        <%= link_to "Edit Profile", edit_user_path(current_user) %> | Account Settings | <%= link_to "Log Out", logout_path %>
+      <% else %>
+        Sign Up | <%= link_to "Log In", login_path %>
+      <% end %>
+    </div>
+    <div class="clear">&nbsp;</div>
+  </div>
+</div>

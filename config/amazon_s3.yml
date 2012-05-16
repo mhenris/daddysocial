@@ -1,0 +1,14 @@
+development:
+  access_key_id: xxxxxxxxxxxxxxxxxxxx
+  secret_access_key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  bucket: your-dev-bucket
+
+test:
+  access_key_id: xxxxxxxxxxxxxxxxxxxx
+  secret_access_key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  bucket: your-test-bucket
+
+production:
+  access_key_id: xxxxxxxxxxxxxxxxxxxx
+  secret_access_key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  bucket: your-prod-bucket

@@ -1,0 +1,32 @@
+<div id="menu_container">
+  <nav id="menu">
+    <ul class="main">
+      <li><%= link_to "Home", root_path %></li>
+      <li><%= link_to "Log In", login_path %></li>
+      <li><%= link_to "Sign Up", signup_path %></li>
+    </ul>
+  </nav>
+</div>
+<script>  
+    (function($){  
+  
+        //cache nav  
+        var nav = $("#menu");  
+  
+        //add indicators and hovers to submenu parents  
+        nav.find("li").each(function() {  
+            if ($(this).find("ul").length > 0) {  
+  
+                //show subnav on hover  
+                $(this).mouseenter(function() {  
+                    $(this).find("ul").stop(true, true).slideDown(150);  
+                });  
+  
+                //hide submenus on exit  
+                $(this).mouseleave(function() {  
+                    $(this).find("ul").stop(true, true).slideUp(150);  
+                });  
+            }  
+        });  
+    })(jQuery);  
+</script>  

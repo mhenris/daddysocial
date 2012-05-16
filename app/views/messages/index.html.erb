@@ -1,0 +1,4 @@
+<h2>Inbox | <%= link_to "Outbox", outbox_path %></h2>
+<table cellspacing="5">
+  <%= render :partial => 'received_message', :collection => @messages %>
+</table>

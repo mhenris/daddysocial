@@ -1,0 +1,87 @@
+<script>
+  $(document).ready(function() {
+    $('#map').dialog({
+      modal: true,
+      width: 700,
+      height: 500,
+      resizable: false,
+      autoOpen: false,
+      show: 'fade',
+      hide: 'fade'
+    })
+  });
+
+  function mapUser(url) {
+    $("#map").dialog("open");
+    $("#iframe").attr("src",url);
+    return false;
+  }
+</script>
+<div id="map"><iframe id="iframe" width="100%" height="99%"
+    marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto"
+    title="Dialog Title">Your browser does not suppr</iframe></div>
+<div id="profile">
+  <h1 style="margin-bottom:5px;padding-bottom:5px;border-bottom:1px solid #ccc;width:321px" class="left">
+    <%= @user.name %>
+    <% if @user.online? %>
+      <%= image_tag "online.png", :height => 20 %>
+    <% else %>
+      <%= image_tag "offline.png", :height => 20 %>
+    <% end %>
+  </h1>
+  <div class="right" style="width:204px;text-align:right">
+  <%= image_tag @user.profile_image_url(:profile), :style => "border: 2px solid #ccc" %>
+  </div>
+  <div class="left">
+    <% if signed_in? %>
+      <% unless @user == current_user %>
+          <% if @user.followed?(current_user.id) %>
+            <%= link_to "Unfollow " + @user.name, unfollow_user_path(@user) %>
+          <% else %>
+            <%= link_to "Follow " + @user.name, follow_user_path(@user) %>
+          <% end %>
+        </p>
+      <% end %>
+    <% end %>
+    <p><%= @user.city + ', ' unless @user.city.blank? %>
+    <%= @user.state unless @user.state.blank? %>
+    <%= '/ ' + TZInfo::Country.get(@user.country).name unless @user.country.blank? %>
+    (<%= link_to "Map", "#", :onclick => "mapUser('" + location_user_path(@user) + "')" %>)</p>
+    <p><%= @user.age %> Years Old</p>
+    <% unless @user.relationship.blank? && @user.sexually.blank? %>
+      <p><%= @user.relationship + ' / ' unless @user.relationship.blank? %><%= @user.sexually %></p>
+    <% end %>
+  </div>
+  <div class="clear">&nbsp;</div>
+</div>
+<div>&nbsp;</div>
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">About Me</a></li>
+    <li><a href="#tabs-2">Recent Posts</a></li>
+    <li><a href="#tabs-3">Photos</a></li>
+    <li><a href="#tabs-4">Send Message</a></li>
+  </ul>
+  <div id="tabs-1">
+    <h3>About Me</h3>
+    <p><%= @user.profile_text.gsub("\r\n","<br/>").html_safe unless @user.profile_text.nil? %></p>
+  </div>
+  <div id="tabs-2">
+    <h3>Recent Posts</h3>
+    <% @user.posts.order("created_at DESC").limit(5).each do |p| %>
+      <p><%= p.body %></p>
+    <% end %>
+  </div>
+  <div id="tabs-3">
+    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
+    <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+  </div>
+  <div id="tabs-4">
+    <h3>Send <%= @user.name %> a Message</h3>
+    <%= form_for :message, :url => user_messages_path(@user) do |f| %>
+      <%= f.label "What do you want to say" %><br/>
+      <%= f.text_area :message, :cols => 60, :rows => 15 %><br/>
+      <%= f.submit "Send Message" %>
+    <% end %>
+  </div>
+</div>
