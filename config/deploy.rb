@@ -2,6 +2,7 @@ require "bundler/capistrano"
 
 set :application, "daddysocial.com"
 set :repository,  "git@morgan.github.com:mhenris/daddysocial.git"
+set :branch, "develop"
 
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
