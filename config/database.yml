@@ -47,3 +47,13 @@ test:
   pool: 5
   username: postgres
   password: qwe4321
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+production:
+  adapter: mysql
+  host: localhost
+  database: daddysocial
+  username: daddysocial
+  password: r4t5y6u7
