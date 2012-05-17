@@ -15,7 +15,7 @@ end
 if Rails.env.production?
   CarrierWave.configure do |config|
     config.storage = :fog
-    config.fog_directory  = 'ds' # Use bucket 'ds' in production
+    config.fog_directory  = 'ds_prod' # Use bucket 'ds' in production
   end
 end
 
