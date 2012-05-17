@@ -1,6 +1,7 @@
 require "bundler/capistrano"
+load "deploy/assets"
 
-# default_environment['PKG_CONFIG_PATH'] = "/usr/local/lib/pkgconfig"
+default_environment['PKG_CONFIG_PATH'] = "/usr/local/lib/pkgconfig"
 
 set :application, "daddysocial.com"
 set :repository,  "git@morgan.github.com:mhenris/daddysocial.git"

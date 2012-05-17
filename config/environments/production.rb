@@ -61,6 +61,22 @@ Social::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.smtp_settings = {
+    :enable_starttls_auto => true,
+    :address => 'smtp.gmail.com',
+    :port => '587',
+    :authentication => :plain,                                                                                                                     
+    :domain => 'daddysocial.com',
+    :user_name => 'morgan@daddysocial.com',
+    :password => 'pLax1co98'
+  }
+
+  ENV['RECAPTCHA_PUBLIC_KEY'] = '6LfNItESAAAAALPA7XyMcH7APP346AdxaiOEZ-G_'
+  ENV['RECAPTCHA_PRIVATE_KEY'] = '6LfNItESAAAAAEaF2ltreP8NYBQrIHtvWnRnEwQG'
+
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
