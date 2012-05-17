@@ -245,7 +245,7 @@ input {
 .smaller { font-size: 10px }
 
 .image { margin: 10px; }
-.hide { display: none; }
+.hide, .recaptcha_error { display: none; }
 
 .post_form .toggle { width: 400px }
 #post_submit { width: 70px }
