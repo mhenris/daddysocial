@@ -21,10 +21,9 @@ gem 'json'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'execjs'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer'
+  gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'
 end
@@ -36,7 +35,6 @@ end
 group :production do
   gem 'mysql'
   gem 'passenger'
-  gem 'execjs'
 end
 
 gem 'jquery-rails'

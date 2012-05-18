@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def location
     @user = User.find(params[:id])
-    render :layout => nil
+    # render :layout => nil
   end 
 
   def index
