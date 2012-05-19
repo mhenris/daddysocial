@@ -10,12 +10,16 @@ module SessionsHelper
     self.current_user = nil
   end
 
+  def session_expired?
+    signed_in? && !current_user.remember_me && (Time.now() - current_user.last_activity > 1200)
+  end
+
   def destroy_expired_session
     # TODO - Maybe save the page they tried to visit and go back to it
-    if (Time.now() - current_user.last_activity > 1200)
+    if session_expired?
       sign_out
       flash[:error] = "Your session has expired.  Please log in"
-      redirect_to login_path
+      redirect_to login_path and return
     end
   end
 

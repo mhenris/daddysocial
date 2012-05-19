@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   include SessionsHelper
 
+  before_filter :destroy_expired_session
   before_filter :update_last_seen, :recent_logins
 
   def recent_logins
@@ -10,9 +11,6 @@ class ApplicationController < ActionController::Base
 
   def update_last_seen
     if signed_in? 
-      unless current_user.remember_me
-        destroy_expired_session
-      end
       current_user.update_attribute(:last_activity, Time.now()) if (Time.now() - current_user.last_activity > 300)
     end
   end  
