@@ -14,7 +14,7 @@ module SessionsHelper
     # TODO - Maybe save the page they tried to visit and go back to it
     if (Time.now() - current_user.last_activity > 1200)
       sign_out
-      flash[:notice] = "Your session has expired.  Please log in"
+      flash[:error] = "Your session has expired.  Please log in"
       redirect_to login_path
     end
   end

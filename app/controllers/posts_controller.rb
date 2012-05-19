@@ -12,13 +12,13 @@ class PostsController < ApplicationController
       post.image = UserImage.find(params[:post][:image_id]).image.file
     end
     post.save
-    redirect_to community_path
+    redirect_to home_path
   end
 
   def destroy
     Post.find(params[:id]).delete
     flash[:success] = "Post successfully deleted"
-    redirect_to community_path
+    redirect_to home_path
   end
 
   private

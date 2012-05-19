@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   def home
     @title = "Home"
     if signed_in?
-      redirect_to community_path
+      redirect_to home_path
     end
   end
 

@@ -12,10 +12,21 @@ class ApplicationController < ActionController::Base
     if signed_in? 
       unless current_user.remember_me
         destroy_expired_session
-        return false
       end
       current_user.update_attribute(:last_activity, Time.now()) if (Time.now() - current_user.last_activity > 300)
     end
   end  
+
+  def home_path
+    if signed_in?
+      if current_user.premium?
+        news_path
+      else
+        community_path
+      end
+    else
+      root_path
+    end
+  end    
 
 end

@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   before_filter :premium_required, :only => [:following]
 
   def location
-    @user = User.find(params[:id])
+    # @user = User.find(params[:id])
     # render :layout => nil
   end 
 

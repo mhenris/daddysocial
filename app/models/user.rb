@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
   end
 
   def unread_messages
-    messages_received.where('read = ?', :false).size
+    messages_received.where("'read' = ?", :false).size
   end
 
   # Activates the user in the database.
