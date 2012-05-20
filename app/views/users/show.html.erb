@@ -65,8 +65,12 @@
   <ul>
     <li><a href="#tabs-1">About Me</a></li>
     <li><a href="#tabs-2">Recent Posts</a></li>
-    <li><a href="#tabs-3">Photos</a></li>
-    <li><a href="#tabs-4">Send Message</a></li>
+    <% unless @user.user_images.size == 0 %>
+      <li><a href="#tabs-3">Photos</a></li>
+    <% end %>
+    <% unless @user == current_user %>
+      <li><a href="#tabs-4">Send Message</a></li>
+    <% end %>
   </ul>
   <div id="tabs-1">
     <h3>About Me</h3>
@@ -78,17 +82,31 @@
       <p><%= p.body %></p>
     <% end %>
   </div>
-  <div id="tabs-3">
-    <h3>Photos for <%= @user.name %></h3>
-    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
-    <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
-  </div>
-  <div id="tabs-4">
-    <h3>Send <%= @user.name %> a Message</h3>
-    <%= form_for :message, :url => user_messages_path(@user) do |f| %>
-      <%= f.label "What do you want to say" %><br/>
-      <%= f.text_area :message, :cols => 60, :rows => 15 %><br/>
-      <%= f.submit "Send Message" %>
-    <% end %>
-  </div>
+  <% unless @user.user_images.size == 0 %>
+    <div id="tabs-3">
+      <h3>Photos for <%= @user.name %></h3>
+    </div>
+  <% end %>
+  <% unless @user == current_user %>
+    <div id="tabs-4">
+      <h3>Send <%= @user.name %> a Message</h3>
+      <%= form_for :message, :url => user_messages_path(@user) do |f| %>
+        <%= f.text_area :message, :cols => 60, :rows => 10 %><br/>
+        <%= f.submit "Send Message" %>
+      <% end %>
+      <div>&nbsp;</div>
+      <h3>Recent Messages</h3>
+      <% Message.where("(recipient_id = #{@user.id} and sender_id = #{current_user.id}) OR (sender_id = #{@user.id} and recipient_id = #{current_user.id})")
+                .order('created_at desc')
+                .limit(10).each do |m|
+      %>
+        <% my_class = m.sender == current_user ? 'user_gray' : 'green' %>
+        <p style="margin:5px 0px">
+          <%= link_to m.sender.name, m.sender %> <%= image_tag "right_arrow16.png" %> <%= link_to m.recipient.name, m.recipient %>
+          &nbsp; <span class="smaller user_gray"><%= time_ago_in_words(m.created_at).titleize %> Ago</span>
+        </p>
+        <p class="small <%= my_class %>" style="margin:0px 10px;"><%= m.message %></p>
+      <% end %>
+    </div>
+  <% end %>
 </div>

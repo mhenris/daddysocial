@@ -1,6 +1,6 @@
 <div class="post_form">
   <p><%= f.label :body, "Speak and thou shalt be heard" %></p>
-  <p><%= f.text_area :body, :autocomplete => :off, :rows => 3, :style => "width:520px" %></p>
+  <p><%= f.text_area :body, :autocomplete => :off, :rows => 3, :style => "width:100%", :placeholder => "What's on your mind?..." %></p>
   <div class="clear">&nbsp;</div>
   <div id="toggle_add" class="left toggle">
     <a href="#" onclick="$('#toggle_add').hide();$('#toggle_image').show();$('#toggle_remove').show()">Add Photo</a>

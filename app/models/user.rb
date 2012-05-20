@@ -58,12 +58,13 @@ class User < ActiveRecord::Base
   end
 
   def unread_messages
-    messages_received.where("'read' = ?", :false).size
+    messages_received.where("is_read = ?", 0).size
   end
 
   # Activates the user in the database.
   def activate
     update_attributes(:activated_at => Time.now.utc, :activation_code => nil)
+    UserImage.new(:user => self, :image => profile_image.file).save unless profile_image.blank?
   end
 
   def activated?

@@ -4,7 +4,7 @@ Social::Application.routes.draw do
     member do
       get 'follow'
       get 'followers'
-      get 'following'
+      get 'favorites'
       get 'unfollow'
       get 'location'
     end

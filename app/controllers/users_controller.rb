@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_filter :login_required, :only => [ :edit, :update, :index ]
   before_filter :current_user_required, :only => [ :edit, :update ]
   before_filter :create_visitor, :only => [:show]
-  before_filter :premium_required, :only => [:following]
+  before_filter :premium_required, :only => [:favorites]
 
   def location
     # @user = User.find(params[:id])
@@ -65,7 +65,7 @@ class UsersController < ApplicationController
     redirect_to user_path(params[:id])
   end
 
-  def following
+  def favorites
     @user = User.find(params[:id])
     @users = Array.new
     current_user.following.each do |f|

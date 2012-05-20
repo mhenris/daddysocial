@@ -297,3 +297,5 @@ input[type="text"], input[type="password"] {
 .green { color: green; }
 .red { color: red; }
 .orange { color: orange; }
+
+#footer p { margin: 5px 0px; }

@@ -13,8 +13,8 @@ class MessagesController < ApplicationController
 
   def show
     @message = Message.find(params[:id])
-    unless @message.read?
-      @message.update_attribute(:read, true)
+    unless @message.is_read?
+      Message.find(params[:id]).update_attribute(:is_read, 1)
     end
   end
 
