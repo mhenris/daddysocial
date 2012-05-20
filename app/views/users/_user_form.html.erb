@@ -1,12 +1,16 @@
 <%= render 'shared/error_messages' %>
+<h3 class="orange">Login Information</h3>
+<div class="half_form left">
 <div class="field">
   <%= f.label :name %><br />
   <%= f.text_field :name, :autocomplete => :off %>
 </div>
 <div class="field">
-  <%= f.label :email %><br />
+  <%= f.label :email, "Login (Email Address)" %><br />
   <%= f.text_field :email, :autocomplete => :off %>
 </div>
+</div>
+<div class="half_form left">
 <div class="field">
   <%= f.label :password %><br />
   <%= f.password_field :password, :autocomplete => :off %>
@@ -15,13 +19,20 @@
   <%= f.label :password_confirmation, "Confirmation" %><br />
   <%= f.password_field :password_confirmation, :autocomplete => :off %>
 </div>
-<div class="field">
-  <%= f.label :birthday %><br />
-  <%= f.date_select :birthday %>
 </div>
+<div class="clear">&nbsp;</div>
+<h3 class="orange">Upload a Profile Photo</h3>
+<div class="field">
+  <%= f.file_field :profile_image %>
+</div>
+<h3 class="orange">Birthday</h3>
+<div class="field">
+  <%= f.date_select :birthday, { :start_year => Time.now.year - 18, :end_year => 1900, :default => { :month => 1, :day => 1, :year => 1960 } } %>
+</div>
+<h3 class="orange">Location</h3>
 <div class="field">
   <%= f.label :country, "Country" %><br />
-  <%= f.select :country, TZInfo::Country.all_codes.map { |c| [TZInfo::Country.get(c), c] } %>
+  <%= f.select :country, TZInfo::Country.all_codes.map{ |c| [TZInfo::Country.get(c).name, c] }.sort %>
 </div>
 <div class="field">
   <%= f.label :state, "State" %><br />
@@ -35,6 +46,7 @@
   <%= f.label :zip %><br />
   <%= f.text_field :zip, :autocomplete => :off %>
 </div>
+<h3 class="orange">Looks</h3>
 <div class="field">
   <%= f.label :height, "Height (inches)" %><br />
   <%= f.text_field :height, :autocomplete => :off %>
@@ -43,29 +55,37 @@
   <%= f.label :weight, "Weight (pounds)" %><br />
   <%= f.text_field :weight, :autocomplete => :off %>
 </div>
-<div class="field">
-  <%= f.label :preferred_age_low %><br />
-  <%= f.text_field :preferred_age_low, :autocomplete => :off %>
+<h3 class="orange">Preferences</h3>
+<div class="half_form left">
+  <div class="field">
+    <%= f.label :preferred_age_low %><br />
+    <%= f.select :preferred_age_low, 18..100 %>
+  </div>
 </div>
-<div class="field">
-  <%= f.label :preferred_age_high %><br />
-  <%= f.text_field :preferred_age_high, :autocomplete => :off %>
+<div class="half_form left">
+  <div class="field">
+    <%= f.label :preferred_age_high %><br />
+    <%= f.select :preferred_age_high, 18..100 %>
+  </div>
 </div>
-<div class="field">
-  <%= f.label :sexually %><br />
-  <%= f.select :sexually, [nil,'Top','Bottom','Versatile','Oral Only'] %>
+<h3 class="orange">Other Goodies</h3>
+<div class="half_form left">
+  <div class="field">
+    <%= f.label :relationship %><br />
+    <%= f.select :relationship, [nil,'Single','Dating','Partnered (Monogamous)','Partnered (Open)','Married'] %>
+  </div>
 </div>
-<div class="field">
-  <%= f.label :relationship %><br />
-  <%= f.select :relationship, [nil,'Single','Dating','Partnered (Monogamous)','Partnered (Open)','Married'] %>
+<div class="half_form left">
+  <div class="field">
+    <%= f.label :sexually %><br />
+    <%= f.select :sexually, [nil,'Top','Bottom','Versatile','Oral Only'] %>
+  </div>
 </div>
+<h3 class="orange">Profile Text</h3>
 <div class="field">
-  <%= f.file_field :profile_image %>
+  <%= f.text_area :profile_text, :autocomplete => :off, :cols => 65, :rows => 15, :placeholder => "Enter profile text here...." %>
 </div>
-<div class="field">
-  <%= f.label :profile_text %><br />
-  <%= f.text_area :profile_text, :autocomplete => :off %>
-</div>
+<h3 class="orange">Humanness</h3>
 <div class="field">
   <%= recaptcha_tags %>
 </div>

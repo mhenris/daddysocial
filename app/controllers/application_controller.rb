@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   def update_last_seen
     if signed_in? 
-      current_user.update_attribute(:last_activity, Time.now()) if (Time.now() - current_user.last_activity > 300)
+      User.find(current_user.id).update_attribute(:last_activity, Time.now()) if (Time.now() - current_user.last_activity > 300)
     end
   end  
 

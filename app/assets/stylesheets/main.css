@@ -138,8 +138,9 @@ h3 {
 	padding:20px;
 }
 
-input {
-	font-size: 12pt;
+input[type="text"], input[type="password"] {
+	font-size: 10pt;
+	width: 220px;
 }
 
 .success_message {
@@ -158,13 +159,16 @@ input {
 #left_menu {
   float:left;
   width: 170px;
-  border-right: 1px solid #ddd;
+  xxborder-right: 1px solid #ddd;
 }
 
-#left_menu input {
+#left_menu input[type="submit"], #left_menu input[type="text"], #left_menu input[type="password"] {
   width: 150px;
   font-size: 10px;
 }
+
+#left_menu input[type="submit"] { font-size: 12px; }
+#left_menu input[type="checkbox"] { margin-bottom: 15px; }
 
 #right_menu {
   float: left;
@@ -285,7 +289,11 @@ input {
   border-bottom: 1px solid #ccc;
   padding: 5px 0px;
 }
+
+.half_form { width: 260px; }
+
 .recent_login p { margin: 0px 0px 2px 4px; }
 
 .green { color: green; }
 .red { color: red; }
+.orange { color: orange; }

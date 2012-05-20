@@ -1,8 +1,17 @@
-<h1>fuckyou</h1>
+<h1>Find Users</h1>
 <%= form_tag '/users', :method => 'get' %>
-  <p>
-    Age<br />
-    <%= text_field_tag :min %> -
-    <%= text_field_tag :max %>
-  </p>
-  <p><%= submit_tag "Submit", :name => nil %></p>
+<h3 class="orange">Age</h3>
+<div class="half_form left">
+  <div class="field">
+    Age Minimum<br />
+    <%= select_tag :min, options_for_select(18..100), { :include_blank => true } %>
+  </div>
+</div>
+<div class="half_form left">
+  <div class="field">
+    Age Max<br />
+    <%= select_tag :max, options_for_select(18..100), { :include_blank => true } %>
+  </div>
+</div>
+<div class="clear">&nbsp;</div>
+<p><%= submit_tag "Submit", :name => nil %></p>
