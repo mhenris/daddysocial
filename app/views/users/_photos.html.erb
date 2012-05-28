@@ -1,0 +1,7 @@
+<%= paginate @images %>
+<div class="clear">&nbsp;</div>
+<% @images.each do |image| %>
+  <div class="image left"><%= link_to image_tag(image.image_url(:thumb), :class => "blue_border"), user_image_path(current_user,image) %></div>
+<% end %>
+<div class="clear">&nbsp;</div>
+<%= paginate @images %>

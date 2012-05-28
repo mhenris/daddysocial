@@ -9,8 +9,9 @@
 <% if current_user.unread_messages == 0 %>
   <%= link_to "Personal Messages", inbox_path, :class => "left_menu_link" %>
 <% else %>
-  <%= link_to "Personal Messages (" + current_user.unread_messages.to_s + ")", inbox_path, :class => "left_menu_link", :style => "color:red" %>
+  <%= link_to "Personal Messages (" + current_user.unread_messages.to_s + ")", inbox_path, :class => "bold left_menu_link" %>
 <% end %>
 <%= link_to "Visitors", visitors_path, :class => "left_menu_link" %>
-<%= link_to "Photos (" + current_user.user_images.size.to_s + ")", user_images_path(current_user), :class => "left_menu_link" %>
-<%= link_to "Favorites ("+current_user.following.size.to_s+")", favorites_user_path(current_user), :class => "left_menu_link" %>
+<%= link_to "My Profile", user_path(@current_user), :class => "left_menu_link" %>
+<%= link_to "My Photos (" + current_user.images.size.to_s + ")", user_images_path(current_user), :class => "left_menu_link" %>
+<%= link_to "My Favorites ("+current_user.following.size.to_s+")", favorites_user_path(current_user), :class => "left_menu_link" %>

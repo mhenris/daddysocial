@@ -15,19 +15,19 @@ Social::Application.routes.draw do
     resources :images, :class => 'UserImage'
   end
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :posts, :only => [:create, :destroy, :update]
+  resources :posts, :only => [:show, :create, :destroy, :update]
   resources :comments, :only => [:create, :destroy, :update]
 
   match "/inbox" => "messages#index"
   match "/outbox" => "messages#sent"
-  match "/news" => "pages#news"
-  match "/community" => "pages#community"
+  match "/news" => "users#news"
+  match "/community" => "users#community"
   match "/signup" => "users#new"
   match "/login" => "sessions#new"
   match "/logout" => "sessions#destroy"
   match "/notfound" => "pages#notfound"
   match "/users/:activation_code/activate" => "users#activate", :as => :activate
-  match "/visitors" => "pages#visitors"
+  match "/visitors" => "users#visitors"
   match "/premium" => "pages#premium"
 
   # The priority is based upon order of creation:

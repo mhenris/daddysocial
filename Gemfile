@@ -7,7 +7,7 @@ gem 'rails', '3.2.2'
 
 gem 'mysql'
 gem 'carrierwave'
-gem 'rmagick'
+gem 'mini_magick'
 gem 'aws-s3'
 gem 'fog'
 gem 'tzinfo'

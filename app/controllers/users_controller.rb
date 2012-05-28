@@ -5,6 +5,30 @@ class UsersController < ApplicationController
   before_filter :create_visitor, :only => [:show]
   before_filter :premium_required, :only => [:favorites]
 
+  def visitors
+    # TODO - This is ugly
+    @title = "Visitors"
+    @users = Array.new
+    current_user.visitors.order("updated_at desc").each do |v|
+      @users << User.find(v.visited_by)
+    end
+  end
+
+  def news
+    # TODO / add posts on which the current user has commented
+    user_ids = Array.new
+    user_ids << current_user.id
+    current_user.following.each do |f|
+      user_ids << f.following_id
+    end
+    @posts = Post.order("updated_at DESC").find(:all, :conditions => ['user_id in (?)', user_ids])
+  end
+
+  def community
+    @title = "News"
+    @posts = Post.order("updated_at DESC").all
+  end
+
   def location
     # @user = User.find(params[:id])
     # render :layout => nil
@@ -12,12 +36,18 @@ class UsersController < ApplicationController
 
   def index
     @title = "Users"
-    @users ||= User.search(params).page(params[:page]).per(2)
+    @users ||= User.search(params).page(params[:page]).per(30)
   end
 
   def show
     @title = "Profile"
     @user = User.find(params[:id])
+    @images = @user.images.page(params[:page]).per(16)
+    @recent_messages = Message.where("(recipient_id = #{@user.id} and sender_id = #{current_user.id}) OR (sender_id = #{@user.id} and recipient_id = #{current_user.id})").order('created_at desc').limit(10)
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def edit

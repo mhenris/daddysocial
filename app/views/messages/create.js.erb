@@ -1,0 +1,7 @@
+$("#message_message").val("");
+<% if current_user.message_limit? %>
+$('#ajax_message').html("<p class='flash error'>Sorry, but you've reached your daily message limit</p>").dialog('open');
+<% else %>
+$('#ajax_message').html("<p class='flash success'>Message successfully sent!</p>").dialog('open');
+$("<%= escape_javascript(render(@message)) %>").insertAfter("#recent");
+<% end %>

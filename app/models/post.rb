@@ -4,6 +4,7 @@ class Post < ActiveRecord::Base
 
   mount_uploader :image, PostImageUploader
 
-  def importance
+  def feed_comments
+    comments.last(3)
   end
 end

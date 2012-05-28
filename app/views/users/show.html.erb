@@ -1,28 +1,6 @@
-<script>
-  $(document).ready(function() {
-    $('#map').dialog({
-      modal: true,
-      width: 700,
-      height: 500,
-      resizable: false,
-      autoOpen: false,
-      show: 'fade',
-      hide: 'fade'
-    })
-    $('#tabs').tabs({
-      select: function(event, ui) {                   
-        window.location.replace(ui.tab.hash);
-      }
-    });
-
-  });
-
-  function mapUser(url) {
-    $("#map").dialog("open");
-    $("#iframe").attr("src",url);
-    return false;
-  }
-</script>
+<%= javascript_include_tag 'ajax_paginate' %>
+<%= javascript_include_tag 'users' %>
+<div id="ajax_message"></div>
 <div id="map"><iframe id="iframe" width="100%" height="99%"
     marginWidth="0" marginHeight="0" frameBorder="0" scrolling="auto"
     title="Dialog Title">Your browser does not suppr</iframe></div>
@@ -65,7 +43,7 @@
   <ul>
     <li><a href="#tabs-1">About Me</a></li>
     <li><a href="#tabs-2">Recent Posts</a></li>
-    <% unless @user.user_images.size == 0 %>
+    <% unless @user.images.size == 0 %>
       <li><a href="#tabs-3">Photos</a></li>
     <% end %>
     <% unless @user == current_user %>
@@ -74,7 +52,7 @@
   </ul>
   <div id="tabs-1">
     <h3>About Me</h3>
-    <p><%= @user.profile_text.gsub("\r\n","<br/>").html_safe unless @user.profile_text.nil? %></p>
+    <p><%= @user.profile_text.gsub("\r\n","<br/>") unless @user.profile_text.nil? %></p>
   </div>
   <div id="tabs-2">
     <h3>Recent Posts</h3>
@@ -82,31 +60,25 @@
       <p><%= p.body %></p>
     <% end %>
   </div>
-  <% unless @user.user_images.size == 0 %>
+  <% unless @user.images.size == 0 %>
     <div id="tabs-3">
-      <h3>Photos for <%= @user.name %></h3>
+      <h3>Photos for <%= @user.name %> (<%= @user.images.size.to_s %>)</h3>
+      <div id="photos">
+        <%= render 'photos' %>
+        <div class="clear">&nbsp;</div>
+      </div>
     </div>
   <% end %>
   <% unless @user == current_user %>
     <div id="tabs-4">
       <h3>Send <%= @user.name %> a Message</h3>
-      <%= form_for :message, :url => user_messages_path(@user) do |f| %>
-        <%= f.text_area :message, :cols => 60, :rows => 10 %><br/>
+      <%= form_for :message, :remote => true, :url => user_messages_path(@user) do |f| %>
+        <%= f.text_area :message, :cols => 60, :rows => 10, :placeholder => "Type message here..." %><br/>
         <%= f.submit "Send Message" %>
       <% end %>
       <div>&nbsp;</div>
-      <h3>Recent Messages</h3>
-      <% Message.where("(recipient_id = #{@user.id} and sender_id = #{current_user.id}) OR (sender_id = #{@user.id} and recipient_id = #{current_user.id})")
-                .order('created_at desc')
-                .limit(10).each do |m|
-      %>
-        <% my_class = m.sender == current_user ? 'user_gray' : 'green' %>
-        <p style="margin:5px 0px">
-          <%= link_to m.sender.name, m.sender %> <%= image_tag "right_arrow16.png" %> <%= link_to m.recipient.name, m.recipient %>
-          &nbsp; <span class="smaller user_gray"><%= time_ago_in_words(m.created_at).titleize %> Ago</span>
-        </p>
-        <p class="small <%= my_class %>" style="margin:0px 10px;"><%= m.message %></p>
-      <% end %>
+      <h3 id="recent">Recent Messages</h3>
+      <%= render :partial => 'messages/message', :collection => @recent_messages %>
     </div>
   <% end %>
 </div>

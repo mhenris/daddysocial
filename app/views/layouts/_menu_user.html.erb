@@ -9,7 +9,6 @@
       <% if current_user.premium? %>
         <li><%= link_to "Personal News", news_path %></li>
       <% end %>
-      <li><%= link_to "My Profile", user_path(@current_user) %></li>
       <li><%= link_to "Who's Online", users_path(:on => 1) %></li>
       <li><%= link_to "Search Users", search_users_path %></li>
       <li><%= link_to "Men's Health", root_path %></li>

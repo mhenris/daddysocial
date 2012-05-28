@@ -1,8 +1,5 @@
 <h2><%= link_to @user.name, user_path(@user) %> | Photos</h2>
 <% if @user == current_user %>
   <div class="current_user"><%= link_to "Upload Photos", new_user_image_path(current_user) %></div>
-<% end %>
-<% iterator = 1 %>
-<% @user.user_images.each do |i| %>
-  <div class="image left"><%= link_to image_tag(i.image_url(:thumb), :class => "blue_border"), user_image_path(current_user,i) %></div>
+  <%= render :partial => 'images/images' %>
 <% end %>

@@ -11,15 +11,17 @@ module SessionsHelper
   end
 
   def session_expired?
-    signed_in? && !current_user.remember_me && (Time.now() - current_user.last_activity > 1200)
+    # TODO - Don't expire session if the page is not login-required
+    signed_in? && !current_user.remember_me && (Time.now() - current_user.last_activity > 1200) && (params[:controller] != 'pages' && params[:controller] != 'sessions')
   end
 
   def destroy_expired_session
     # TODO - Maybe save the page they tried to visit and go back to it
     if session_expired?
       sign_out
-      flash[:error] = "Your session has expired.  Please log in"
-      redirect_to login_path and return
+      access_denied
+      # flash[:error] = "Your session has expired.  Please log in"
+      # redirect_to login_path and return
     end
   end
 

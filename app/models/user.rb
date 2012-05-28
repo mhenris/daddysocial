@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :visitors
   has_many :comments
-  has_many :user_images
+  has_many :images, :class_name => 'UserImage'
   has_many :followers, :class_name => 'Follow', :foreign_key => 'following_id'
   has_many :following, :class_name => 'Follow', :foreign_key => 'follower_id'
   has_many :messages_sent, :class_name => 'Message', :foreign_key => 'sender_id'
@@ -76,7 +76,12 @@ class User < ActiveRecord::Base
   end
 
   def premium?
+    return true if unlimited_membership
     membership_expiration.nil? ? false : Date.today <= membership_expiration
+  end
+
+  def message_limit?
+    premium? ? false : (Message.where("sender_id = #{id} and created_at > '#{Time.now - 86400}'").order("created_at desc").limit(5).size >= 5)
   end
 
   def self.search(params)
@@ -91,22 +96,6 @@ class User < ActiveRecord::Base
   scope :younger_than, lambda { |value| where('birthday >= ?', Integer(value).years.ago) if value }
   scope :online, lambda { |value| where('last_activity >= ?', Time.now() - 600) if value }
   scope :activated, where('activation_code is ?', nil)
-
-    def conditions
-      [conditions_clauses.join(' AND '), *conditions_options]
-    end
-    
-    def conditions_clauses
-      conditions_parts.map { |condition| condition.first }
-    end
-    
-    def conditions_options
-      conditions_parts.map { |condition| condition[1..-1] }.flatten
-    end
-    
-    def conditions_parts(params)
-      private_methods(false).grep(/_conditions$/).map { |m| send(m,params) }.compact
-    end
 
   private
 

@@ -1,0 +1,8 @@
+<% my_class = message.sender == current_user ? 'user_gray' : 'green' %>
+<p style="margin:5px 0px">
+  <%= link_to message.sender.name, message.sender %> 
+  <%= image_tag "right_arrow16.png" %> 
+  <%= link_to message.recipient.name, message.recipient %>
+    &nbsp; <span class="smaller user_gray"><%= time_ago_in_words(message.created_at).titleize %> Ago</span>
+</p>
+<p class="small <%= my_class %>" style="margin:0px 10px;"><%= message.message %></p>

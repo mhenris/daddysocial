@@ -1,0 +1,27 @@
+<div class="post">
+  <div class="main_image left"><%= image_tag post.user.profile_image_url(:thumb), :width => 50 %></div>
+  <div class="main_body left">
+    <p style="width:420px" class="left"><%= link_to post.user.name, user_path(post.user) %>
+      <span class="user_gray smaller"> - <%= time_ago_in_words(post.created_at).titleize %> Ago</span>
+      <% if post.user_id == current_user.id %>
+        <span class="smaller"> - <%= link_to 'Delete Post', post_path(post), :confirm => 'Are you sure?', :method => :delete %></span>
+      <% end %>
+    </p>
+    <div class="clear">&nbsp;</div>
+    <p><%= post.body %></p>
+    <% unless post.image.blank? %>
+      <p><%= image_tag post.image_url(:feed) %></p>
+    <% end %>
+    <div class="clear">&nbsp;</div>
+    <%= render :partial => 'comments/comment', :collection => post.comments %>
+    <div id="comment_<%= post.id %>" class="comment add_comment">
+      <%= form_for :comment, :remote => true, :url => comments_path, :html => { :method => "POST" } do |c| %>
+        <%= c.text_area :comment, :placeholder => "Comment...", :rows => 2, :class => "enter_submit" %>
+        <%= c.hidden_field :post_id, :value => post.id %>
+      <% end %>
+      <div class="clear">&nbsp;</div>
+    </div>
+    <div class="clear">&nbsp;</div>
+  </div>
+  <div class="clear">&nbsp;</div>
+</div>

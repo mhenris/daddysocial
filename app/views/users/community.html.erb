@@ -1,10 +1,6 @@
-<script>
-$(document).ready(function() {
-  $('.enter_submit').keypress(function(e) {
-    if(e.which == 13) { $(this).parent().submit(); }
-  })
-});
-</script>
+<%= javascript_include_tag "enter_submit" %>
+<%= javascript_include_tag "post_dialog" %>
+<div id="post_dialog"></div>
 <%= form_for :post, :url => posts_path, :html => { :method => "POST", :multipart => true } do |f| %>
   <%= render :partial => 'posts/post_form', :locals => { :f => f } %>
 <% end %>

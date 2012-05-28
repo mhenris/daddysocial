@@ -4,6 +4,11 @@ class ImagesController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
+    @images = @user.images.page(params[:page]).per(20)
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show

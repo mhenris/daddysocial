@@ -3,6 +3,13 @@ class PostsController < ApplicationController
   before_filter :login_required
   before_filter :current_user_required, :only => [:destroy]
 
+  def show
+    @post = Post.find(params[:id]);
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def create
     post = Post.new(:user => current_user, :body => params[:post][:body])
     unless params[:post][:image].blank?
@@ -16,9 +23,17 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    Post.find(params[:id]).delete
-    flash[:success] = "Post successfully deleted"
-    redirect_to home_path
+    @post = Post.find(params[:id])
+    @post.comments.delete
+    @post.delete
+    respond_to do |format|
+      format.html {
+        flash[:success] = "Post successfully deleted"
+        redirect_to home_path
+      }
+      format.js
+    end
+
   end
 
   private

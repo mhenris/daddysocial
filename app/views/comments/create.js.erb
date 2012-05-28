@@ -1,1 +1,2 @@
 $("<%= escape_javascript(render(@comment)) %>").insertBefore("#comment_<%= @comment.post.id %>");
+$("#comment_<%= @comment.post.id %>").find("textarea").val("");

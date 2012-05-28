@@ -1,6 +1,12 @@
+<div id="ajax_message"></div>
+<h1>Message from <%= link_to @message.sender.name, @message.sender %></h1>
+<p class="small user_gray" style="margin-top:-5px"><%= time_ago_in_words(@message.created_at).titleize %> Ago</p>
 <p><%= @message.message %></p>
-<%= form_for Message.new, :url => user_messages_path(@message.sender) do |f| %>
-  <%= f.label "What do you want to say" %><br/>
-  <%= f.text_area :message, :cols => 70, :rows => 10 %><br/>
+<h3>Reply to <%= link_to @message.sender.name, @message.sender %></h3>
+<%= form_for Message.new, :url => user_messages_path(@message.sender), :remote => true do |f| %>
+  <%= f.text_area :message, :cols => 60, :rows => 10 %><br/>
   <%= f.submit "Send Message" %>
 <% end %>
+<div>&nbsp;</div>
+<h3 id="recent">Recent Messages</h3>
+<%= render @recent_messages %>

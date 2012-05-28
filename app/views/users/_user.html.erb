@@ -9,8 +9,7 @@
       <%= image_tag "offline.png", :width => 10 %>
     <% end %>
   </p>
-  <p class="user_gray small"><%= user.city %>, <%= user.state %> / <%= TZInfo::Country.get(user.country).name %></p>
+  <p class="user_gray small"><%= user.state + ' / ' unless user.state.blank? %><%= TZInfo::Country.get(user.country).name %></p>
   <p class="user_gray small"><%= user.age %> Years Old</p>
 </div>
-<div class="clear">&nbsp;</div>
 </div>
