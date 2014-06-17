@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   before_save :encrypt_password, :if => :password_required?
   before_create :make_activation_code
 
+  has_many :notifications
   has_many :posts
   has_many :visitors
   has_many :comments
@@ -55,6 +56,10 @@ class User < ActiveRecord::Base
   def age
     now = Time.now.utc.to_date
     birthday.nil? ? 0 : now.year - birthday.year - ((now.month > birthday.month || (now.month == birthday.month && now.day >= birthday.day)) ? 0 : 1)
+  end
+
+  def unread_notifications
+    notifications.where("is_read = ?", 0).size
   end
 
   def unread_messages

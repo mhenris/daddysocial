@@ -30,7 +30,7 @@
     <p><%= @user.city + ', ' unless @user.city.blank? %>
     <%= @user.state unless @user.state.blank? %>
     <%= '/ ' + TZInfo::Country.get(@user.country).name unless @user.country.blank? %>
-    (<%= link_to "Map", "#", :onclick => "mapUser('" + location_user_path(@user) + "')" %>)</p>
+    (<%= link_to "Map", location_user_path(@user), :id => "map_link" %>)</p>
     <p><%= @user.age %> Years Old</p>
     <% unless @user.relationship.blank? && @user.sexually.blank? %>
       <p><%= @user.relationship + ' / ' unless @user.relationship.blank? %><%= @user.sexually %></p>
@@ -42,17 +42,17 @@
 <div id="tabs">
   <ul>
     <li><a href="#tabs-1">About Me</a></li>
-    <li><a href="#tabs-2">Recent Posts</a></li>
+    <li><a href="#tabs-2">Posts</a></li>
     <% unless @user.images.size == 0 %>
       <li><a href="#tabs-3">Photos</a></li>
     <% end %>
     <% unless @user == current_user %>
-      <li><a href="#tabs-4">Send Message</a></li>
+      <li><a href="#tabs-4">Messages</a></li>
     <% end %>
   </ul>
   <div id="tabs-1">
     <h3>About Me</h3>
-    <p><%= @user.profile_text.gsub("\r\n","<br/>") unless @user.profile_text.nil? %></p>
+    <p><%= h(@user.profile_text).gsub("\n", '<br/>').html_safe unless @user.profile_text.nil? %></p>
   </div>
   <div id="tabs-2">
     <h3>Recent Posts</h3>

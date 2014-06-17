@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
 
-  before_filter :login_required, :only => [ :edit, :update, :index ]
+  before_filter :login_required, :only => [ :notifications, :edit, :update, :index ]
   before_filter :current_user_required, :only => [ :edit, :update ]
   before_filter :create_visitor, :only => [:show]
-  before_filter :premium_required, :only => [:favorites]
+  before_filter :premium_required, :only => [:favorites, :news]
 
   def visitors
     # TODO - This is ugly
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     current_user.following.each do |f|
       user_ids << f.following_id
     end
-    @posts = Post.order("updated_at DESC").find(:all, :conditions => ['user_id in (?)', user_ids])
+    @posts = Post.order("updated_at DESC").where('user_id in (?)', user_ids)
   end
 
   def community
@@ -29,9 +29,13 @@ class UsersController < ApplicationController
     @posts = Post.order("updated_at DESC").all
   end
 
+  def notifications
+    @title = "Notifications"
+    @notifications = current_user.notifications
+  end
+
   def location
-    # @user = User.find(params[:id])
-    # render :layout => nil
+    @user = User.find(params[:id])
   end 
 
   def index

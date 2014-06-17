@@ -28,6 +28,7 @@ Social::Application.routes.draw do
   match "/notfound" => "pages#notfound"
   match "/users/:activation_code/activate" => "users#activate", :as => :activate
   match "/visitors" => "users#visitors"
+  match "/notifications" => "users#notifications"
   match "/premium" => "pages#premium"
 
   # The priority is based upon order of creation:

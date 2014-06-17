@@ -8,7 +8,7 @@
       <% end %>
     </p>
     <div class="clear">&nbsp;</div>
-    <p><%= post.body %></p>
+    <p class="small"><%= post.body %></p>
     <% unless post.image.blank? %>
       <p><%= image_tag post.image_url(:feed) %></p>
     <% end %>

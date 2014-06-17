@@ -22,14 +22,14 @@ $(function() {
       window.location.replace(ui.tab.hash);
     }
   });
+  $("#map_link").click(function() {
+    $("#iframe").attr("src",this.href);
+    $("#map").dialog("open");
+    return false;
+  });
 });
 
 function showAjaxMessage(words) {
   $("#ajax_message").dialog("open");
 }
 
-function mapUser(url) {
-  $("#map").dialog("open");
-  $("#iframe").attr("src",url);
-  return false;
-}

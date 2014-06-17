@@ -18,6 +18,7 @@ development:
   database: social_dev
   username: daddysocial
   password: r4t5y6u7
+  socket: /tmp/mysql.sock
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have

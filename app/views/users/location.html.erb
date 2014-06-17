@@ -11,14 +11,27 @@
       src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB94kuogUxUk6nBnfAdGwVOoS7ZazL0GDc&sensor=false">
     </script>
     <script type="text/javascript">
+      var map;
+      var geocoder;
       function initialize() {
-        var myOptions = {
-          center: new google.maps.LatLng(-34.397, 150.644),
-          zoom: 8,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map_canvas"),
-            myOptions);
+        geocoder = new google.maps.Geocoder();
+        var userAddress = '<%= @user.city + ", " + @user.state + ", " + @user.country %>';
+        geocoder.geocode({ address: userAddress }, function(results,status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            var myOptions = {
+              center: results[0].geometry.location,
+              zoom: 12,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+            var marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location
+            });
+          } else {
+            alert("Geocode was not successful for the following reason: " + status);
+          }
+        });
       }
     </script>
   </head>

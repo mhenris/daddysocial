@@ -6,6 +6,11 @@
 </tr>
 </table>
 </div>
+<% if current_user.unread_notifications == 0 %>
+  <%= link_to "Notifications", notifications_path, :class => "left_menu_link", :id => "notify" %>
+<% else %>
+  <%= link_to "Notifications ("+current_user.unread_notifications.to_s+")", notifications_path, :class => " bold left_menu_link", :id => "notify" %>
+<% end %>
 <% if current_user.unread_messages == 0 %>
   <%= link_to "Personal Messages", inbox_path, :class => "left_menu_link" %>
 <% else %>
