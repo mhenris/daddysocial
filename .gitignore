@@ -19,3 +19,4 @@
 
 # Ignore the .rvmrc file
 .rvmrc
+.ruby-*
