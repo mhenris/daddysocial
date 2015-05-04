@@ -41,11 +41,11 @@ Social::Application.configure do
   config.action_mailer.smtp_settings = {
     :enable_starttls_auto => true,
     :address => 'smtp.gmail.com',
-    :port => '587',
+    :port => 587,
     :authentication => :plain,                                                                                                                     
-    :domain => 'daddysocial.com',
-    :user_name => 'morgan@daddysocial.com',
-    :password => 'pLax1co98'
+    :domain => 'gmail.com',
+    :user_name => 'morganhenris@gmail.com',
+    :password => 'Fuckyou1w'
   }
 
   ENV['RECAPTCHA_PUBLIC_KEY'] = '6LfNItESAAAAALPA7XyMcH7APP346AdxaiOEZ-G_'

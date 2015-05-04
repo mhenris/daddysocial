@@ -85,10 +85,12 @@
 <div class="field">
   <%= f.text_area :profile_text, :autocomplete => :off, :cols => 65, :rows => 15, :placeholder => "Enter profile text here...." %>
 </div>
-<h3 class="orange">Humanness</h3>
-<div class="field">
-  <%= recaptcha_tags %>
-</div>
+<%- if params[:action] == 'new' || params[:action] == 'create' %>
+  <h3 class="orange">Humanness</h3>
+  <div class="field">
+    <%= recaptcha_tags %>
+  </div>
+<%- end %>
 <div class="actions">
   <%= f.submit "Sign up" %>
 </div>

@@ -30,7 +30,7 @@
     <p><%= @user.city + ', ' unless @user.city.blank? %>
     <%= @user.state unless @user.state.blank? %>
     <%= '/ ' + TZInfo::Country.get(@user.country).name unless @user.country.blank? %>
-    (<%= link_to "Map", location_user_path(@user), :id => "map_link" %>)</p>
+    (<%= link_to "Map", map_user_path(@user), :id => "map_link" %>)</p>
     <p><%= @user.age %> Years Old</p>
     <% unless @user.relationship.blank? && @user.sexually.blank? %>
       <p><%= @user.relationship + ' / ' unless @user.relationship.blank? %><%= @user.sexually %></p>

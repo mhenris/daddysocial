@@ -6,7 +6,7 @@ Social::Application.routes.draw do
       get 'followers'
       get 'favorites'
       get 'unfollow'
-      get 'location'
+      get 'map'
     end
     collection do
       get 'search'

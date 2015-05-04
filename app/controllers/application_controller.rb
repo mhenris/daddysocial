@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :destroy_expired_session
   before_filter :update_last_seen, :recent_logins
+  before_filter :recent_logins
 
   def recent_logins
     @recent_logins = User.order("last_login desc").limit(10).where("last_login is not ?", nil)

@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     @notifications = current_user.notifications
   end
 
-  def location
+  def map
     @user = User.find(params[:id])
   end 
 
@@ -127,7 +127,7 @@ class UsersController < ApplicationController
       @user.activate
       flash[:success] = "User successfully activated"
     end
-    redirect_to login_path
+    redirect_to login_url
   end
 
   private
